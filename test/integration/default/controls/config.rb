@@ -63,7 +63,11 @@ control 'rspamd configuration' do
   end
 
   describe file("#{config_dir}/local.d/dkim_signing.conf") do
-    its('content') { should match(/^lis = \["a", "b", "c"\];/) }
+    its('content') { should match(/^lis = \[$/) }
+    its('content') { should match(/^    "a",$/) }
+    its('content') { should match(/^    "b",$/) }
+    its('content') { should match(/^    "c"$/) }
+    its('content') { should match(/^\];$/) }
     its('content') { should match(/^nom = 1234;/) }
     its('content') { should match(/^stri = "cadena1";/) }
     its('content') { should include(dkim_domains) }
