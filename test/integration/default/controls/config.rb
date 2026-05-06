@@ -32,6 +32,7 @@ dkim_domains = <<~DKIM_DOMAINS
   }
 DKIM_DOMAINS
 
+
 control 'rspamd configuration' do
   impact 1.0
   title 'Manage the Rspamd Configuration'
@@ -66,5 +67,12 @@ control 'rspamd configuration' do
     its('content') { should match(/^nom = 1234;/) }
     its('content') { should match(/^stri = "cadena1";/) }
     its('content') { should include(dkim_domains) }
+    # list-of-dicts renders as UCL array of objects (not OrderedDict strings)
+    its('content') { should match(/multiselector\.example\.com \{/) }
+    its('content') { should match(/selectors = \[/) }
+    its('content') { should match(%r{path = "/etc/rspamd/dkim/multiselector\.example\.com\.rsa\.key";}) }
+    its('content') { should match(/selector = "rsa-2024";/) }
+    its('content') { should match(%r{path = "/etc/rspamd/dkim/multiselector\.example\.com\.ed25519\.key";}) }
+    its('content') { should match(/selector = "ed25519-2024";/) }
   end
 end

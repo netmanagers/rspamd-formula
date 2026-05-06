@@ -126,6 +126,12 @@ rspamd:
           example.net:
             selector: fancy_selector
             path: /var/lib/rspamd/dkim/this.will.be.overrriden
+          multiselector.example.com:
+            selectors:
+              - path: /etc/rspamd/dkim/multiselector.example.com.rsa.key
+                selector: rsa-2024
+              - path: /etc/rspamd/dkim/multiselector.example.com.ed25519.key
+                selector: ed25519-2024
         nom: 1234
         stri: cadena1
         lis:
