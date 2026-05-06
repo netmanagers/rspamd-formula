@@ -19,17 +19,17 @@
     {%- elif v is iterable %}
       {%- if v and (v | first) is mapping %}
 {{ n|indent(ind, True) }}{{ operator }}[
-{% for item in v %}
+{% for item in v -%}
 {{ '{'|indent(ind+ind_increment, True) }}
 {{- _config(item, ind+ind_increment*2) }}
 {{ '}'|indent(ind+ind_increment, True) }}{{ ',' if not loop.last }}
-{% endfor %}
+{% endfor -%}
 {{ ']'|indent(ind, True) }};
       {%- else %}
 {{ n|indent(ind, True) }}{{ operator }}[
-{% for item in v %}
+{% for item in v -%}
 {{ ('"' ~ item ~ '"')|indent(ind+ind_increment, True) }}{{ ',' if not loop.last }}
-{% endfor %}
+{% endfor -%}
 {{ ']'|indent(ind, True) }};
       {%- endif %}
     {%- endif %}
